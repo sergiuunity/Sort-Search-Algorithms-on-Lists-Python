@@ -26,7 +26,7 @@ def is_sorted(given_list, criterion):
     return True
 
 
-# sorts a given list of numbers based on the given criterion using Bubble Sort and returns it
+# sorts a given list of numbers based on the given criterion using Bubble Sort and returns the resulted list
 # Time Complexity: O(n^2)
 def bubble_sort(given_list, criterion):
     for i in range(len(given_list)):
@@ -36,7 +36,7 @@ def bubble_sort(given_list, criterion):
     return given_list
 
 
-# sorts a given list of numbers based on the given criterion using Bubble Sort and returns it
+# sorts a given list of numbers based on the given criterion using Insertion Sort and returns the resulted list
 # Time Complexity: O()
 def insertion_sort(given_list, criterion):
     for i in range(1, len(given_list)):
@@ -47,11 +47,24 @@ def insertion_sort(given_list, criterion):
     return given_list
 
 
+# sorts a given list of numbers based on the given criterion using Selection Sort and returns the resulted list
+# Time Complexity: O()
+def selection_sort(given_list, criterion):
+    for i in range(len(given_list) - 1):
+        crt_extreme_index = i
+        for j in range(i + 1, len(given_list)):
+            if not criterion(given_list[crt_extreme_index], given_list[j]):
+                crt_extreme_index = j
+        given_list[i], given_list[crt_extreme_index] = given_list[crt_extreme_index], given_list[i]
+    return given_list
+
+
 if __name__ == '__main__':
     given_size = 50
     my_list = generate_random_list(given_size)
     print(my_list)
     # my_list = bubble_sort(my_list, increasing_numbers)
-    my_list = insertion_sort(my_list, decreasing_numbers)
+    # my_list = insertion_sort(my_list, decreasing_numbers)
+    my_list = selection_sort(my_list, increasing_numbers)
     print(my_list)
-    print(is_sorted(my_list, decreasing_numbers))
+    print(is_sorted(my_list, increasing_numbers))
