@@ -48,7 +48,7 @@ def insertion_sort(given_list, criterion):
 
 
 # sorts a given list of numbers based on the given criterion using Selection Sort and returns the resulted list
-# Time Complexity: O()
+# Time Complexity: O(n^2)
 def selection_sort(given_list, criterion):
     for i in range(len(given_list) - 1):
         crt_extreme_index = i
@@ -59,12 +59,53 @@ def selection_sort(given_list, criterion):
     return given_list
 
 
+# sorts a given list of numbers based on the given criterion using Merge Sort and returns the resulted list
+# Time Complexity: O()
+def merge_sort(given_list, criterion):
+    if len(given_list) == 1:
+        return given_list
+    # split the list in 2 roughly equally-sized parts
+    first_part = given_list[:len(given_list) // 2]
+    second_part = given_list[len(given_list) // 2:]
+
+    # call the method for the two lists
+    first_part = merge_sort(first_part, criterion)
+    second_part = merge_sort(second_part, criterion)
+
+    # merge the two resulted lists into one
+    return merge(first_part, second_part, criterion)
+
+
+# merges two sorted lists into one sorted list
+def merge(given_list1, given_list2, criterion):
+    result = []
+    # adding the elements in order
+    while (not not given_list1) and (not not given_list2):  # while first and second lists both have elements
+        if criterion(given_list1[0], given_list2[0]):
+            result.append(given_list1[0])
+            given_list1.pop(0)
+        else:
+            result.append(given_list2[0])
+            given_list2.pop(0)
+    # adding remaining elements from the first list
+    while not not given_list1:  # while the first list is not empty
+        result.append(given_list1[0])
+        given_list1.pop(0)
+    # adding remaining elements from the second list
+    while not not given_list2:  # while the second list is not empty
+        result.append(given_list2[0])
+        given_list2.pop(0)
+    return result
+
+
 if __name__ == '__main__':
     given_size = 50
     my_list = generate_random_list(given_size)
     print(my_list)
     # my_list = bubble_sort(my_list, increasing_numbers)
     # my_list = insertion_sort(my_list, decreasing_numbers)
-    my_list = selection_sort(my_list, increasing_numbers)
+    # my_list = selection_sort(my_list, increasing_numbers)
+    my_list = merge_sort(my_list, increasing_numbers)
+
     print(my_list)
     print(is_sorted(my_list, increasing_numbers))
