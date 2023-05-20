@@ -62,7 +62,7 @@ def selection_sort(given_list, criterion):
 # sorts a given list of numbers based on the given criterion using Merge Sort and returns the resulted list
 # Time Complexity: O()
 def merge_sort(given_list, criterion):
-    if len(given_list) == 1:
+    if len(given_list) <= 1:
         return given_list
     # split the list in 2 roughly equally-sized parts
     first_part = given_list[:len(given_list) // 2]
@@ -76,7 +76,7 @@ def merge_sort(given_list, criterion):
     return merge(first_part, second_part, criterion)
 
 
-# merges two sorted lists into one sorted list
+# merges two sorted lists into one sorted list based on the given criterion
 def merge(given_list1, given_list2, criterion):
     result = []
     # adding the elements in order
@@ -98,6 +98,23 @@ def merge(given_list1, given_list2, criterion):
     return result
 
 
+# sorts a given list of numbers based on the given criterion using Quick Sort and returns the resulted list
+# Time Complexity: O()
+def quick_sort(given_list, criterion):
+    if len(given_list) <= 1:
+        return given_list
+    first_part = []
+    second_part = []
+    # taking the last element as the pivot point
+    pivot = given_list.pop()
+    for i in range(len(given_list)):
+        if criterion(given_list[i], pivot):
+            first_part.append(given_list[i])
+        else:
+            second_part.append(given_list[i])
+    return quick_sort(first_part, criterion) + [pivot] + quick_sort(second_part, criterion)
+
+
 if __name__ == '__main__':
     given_size = 50
     my_list = generate_random_list(given_size)
@@ -105,7 +122,8 @@ if __name__ == '__main__':
     # my_list = bubble_sort(my_list, increasing_numbers)
     # my_list = insertion_sort(my_list, decreasing_numbers)
     # my_list = selection_sort(my_list, increasing_numbers)
-    my_list = merge_sort(my_list, increasing_numbers)
+    # my_list = merge_sort(my_list, increasing_numbers)
+    my_list = quick_sort(my_list, decreasing_numbers)
 
     print(my_list)
-    print(is_sorted(my_list, increasing_numbers))
+    print(is_sorted(my_list, decreasing_numbers))
